@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodSwing - Mood-Based Food Suggestions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Landing/Auth Page (First View) -->
+    <div id="landingPage" class="page active landing-page">
+        <!-- Top decorative bar with website name -->
+        <div class="landing-top-bar">
+            <div class="top-bar-content">
+                <div class="top-website-logo">
+                    <span class="top-logo-icon">🍔</span>
+                    <span class="top-logo-text">FoodSwing</span>
+                </div>
+                <div class="top-food-icons">
+                    <span class="top-icon">🍕</span>
+                    <span class="top-icon">🍔</span>
+                    <span class="top-icon">🍰</span>
+                    <span class="top-icon">🍦</span>
+                    <span class="top-icon">🌮</span>
+                    <span class="top-icon">🍣</span>
+                    <span class="top-icon">🍜</span>
+                    <span class="top-icon">🥗</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="landing-wrapper">
+            <div class="landing-hero">
+                <div class="hero-static-animation">
+                    <div class="food-static-circle">🍕</div>
+                    <div class="food-static-circle">🍔</div>
+                    <div class="food-static-circle">🍰</div>
+                    <div class="food-static-circle">🍦</div>
+                    <div class="food-static-circle">🌮</div>
+                    <div class="food-static-circle">🍣</div>
+                </div>
+                <h1 class="landing-title-big">🎭 FoodSwing</h1>
+                <p class="landing-subtitle">Discover Perfect Foods for Your Mood</p>
+                <p class="landing-description">Let your emotions guide your next delicious meal! 🍽️</p>
+                
+                <!-- Feature highlights -->
+                <div class="landing-features">
+                    <div class="feature-item">
+                        <span class="feature-icon">😊</span>
+                        <span>5 Moods</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🍕</span>
+                        <span>40+ Foods</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">✨</span>
+                        <span>Instant Match</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="auth-container-landing">
+                <div class="auth-illustration-top">
+                    <img src="personenjoyingfood.webp" alt="Welcome" class="auth-top-image">
+                </div>
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="loginTab" onclick="switchAuth('login')">Login</button>
+                    <button class="auth-tab" id="signupTab" onclick="switchAuth('signup')">Sign Up</button>
+                </div>
+                
+                <div class="auth-form" id="authForm">
+                    <div class="form-group" id="nameField" style="display: none;">
+                        <div class="input-icon">👤</div>
+                        <input type="text" id="authName" placeholder="Full Name" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-icon">📧</div>
+                        <input type="email" id="authEmail" placeholder="Email" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-icon">🔒</div>
+                        <input type="password" id="authPassword" placeholder="Password" class="form-input">
+                    </div>
+                    <button class="submit-btn" onclick="handleAuth()">
+                        <span id="authBtnText">Login</span> ✨
+                    </button>
+                    <p class="auth-hint">Start your food journey with us! 🚀</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation (Hidden initially, shown after login) -->
+    <nav class="navbar" id="mainNavbar" style="display: none;">
+        <div class="nav-container">
+            <div class="logo" onclick="showPage('home')">
+                <span class="logo-icon">🍔</span>
+                <span class="logo-text">FoodSwing</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" onclick="showPage('home'); return false;">Home</a>
+                <a href="#" onclick="showPage('blog'); return false;">Blog</a>
+                <a href="#" onclick="showPage('about'); return false;">About Us</a>
+                <a href="#" onclick="showPage('contact'); return false;">Contact</a>
+                <button class="login-btn" id="userBtn" onclick="logoutUser()">Logout</button>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#" onclick="showPage('home'); return false;">Home</a>
+            <a href="#" onclick="showPage('blog'); return false;">Blog</a>
+            <a href="#" onclick="showPage('about'); return false;">About Us</a>
+            <a href="#" onclick="showPage('contact'); return false;">Contact</a>
+            <button class="login-btn" onclick="logoutUser()">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="homePage" class="page">
+        <div class="hero-section">
+            <div class="hero-content">
+                <div class="hero-image">
+                    <img src="hero-food.svg" alt="Person enjoying food" class="hero-illustration-static" onerror="this.style.display='none'">
+                </div>
+                <div class="hero-text">
+                    <h1 class="hero-title">🎭 How are you feeling today?</h1>
+                    <p class="hero-subtitle">Let your mood guide your next delicious meal!</p>
+                    <p class="hero-description">Discover the perfect comfort foods, energizing meals, or celebratory treats based on your current emotional state.</p>
+                </div>
+            </div>
+            <div class="mood-emoji-rain" id="emojiRain"></div>
+        </div>
+
+<!-- ============================================
+     ADD THIS BUTTON IN YOUR HOME PAGE
+     Place it after the hero-section and before moods-grid
+     ============================================ -->
+
+<!-- Surprise Me Button Section -->
+<div style="text-align: center; margin: 3rem 0;">
+    <button class="surprise-me-btn" onclick="surpriseMe()">
+        🎲 Surprise Me! Get Random Food
+    </button>
+    <p style="color: #999; margin-top: 1rem;">
+        Can't decide? Let us pick the perfect food for you!
+    </p>
+</div>
+
+
+<!-- EXACT LOCATION: Find this in your index.html -->
+<!-- Place the button BETWEEN these two sections: -->
+
+<!--
+    </div> (closing tag of hero-section)
+    
+    👉 ADD SURPRISE BUTTON HERE 👈
+    
+    <div class="moods-grid"> (start of moods-grid)
+-->
+
+        <!-- Decorative Food Gallery -->
+        <div class="food-gallery">
+            <h2 class="gallery-title">✨ A World of Flavors Awaits ✨</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="pizza.webp" alt="Delicious pizza" class="gallery-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22300%22%3E%3Crect fill=%22%23ff69b4%22 width=%22500%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2280%22 text-anchor=%22middle%22 dy=%22.3em%22%3E🍕%3C/text%3E%3C/svg%3E'">
+                    <div class="gallery-overlay">
+                        <span>🍕 Pizza Perfection</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="cake.jpg" alt="Sweet dessert" class="gallery-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22300%22%3E%3Crect fill=%22%23ffb6c1%22 width=%22500%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2280%22 text-anchor=%22middle%22 dy=%22.3em%22%3E🍰%3C/text%3E%3C/svg%3E'">
+                    <div class="gallery-overlay">
+                        <span>🍰 Sweet Bliss</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="bowl.webp" alt="Fresh salad" class="gallery-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22300%22%3E%3Crect fill=%22%234ecdc4%22 width=%22500%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2280%22 text-anchor=%22middle%22 dy=%22.3em%22%3E🥗%3C/text%3E%3C/svg%3E'">
+                    <div class="gallery-overlay">
+                        <span>🥗 Fresh & Healthy</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="comfortfood.jpg" alt="Comfort food" class="gallery-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22300%22%3E%3Crect fill=%22%23f7b731%22 width=%22500%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2280%22 text-anchor=%22middle%22 dy=%22.3em%22%3E🍜%3C/text%3E%3C/svg%3E'">
+                    <div class="gallery-overlay">
+                        <span>🍜 Comfort Bowls</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="moods-grid">
+            <div class="mood-card happy" onclick="selectMood('happy')">
+                <div class="mood-emoji bounce">😊</div>
+                <h3>Happy</h3>
+                <p>Celebrate your joy!</p>
+            </div>
+            <div class="mood-card sad" onclick="selectMood('sad')">
+                <div class="mood-emoji float">😢</div>
+                <h3>Sad</h3>
+                <p>Need some comfort</p>
+            </div>
+            <div class="mood-card angry" onclick="selectMood('angry')">
+                <div class="mood-emoji shake">😠</div>
+                <h3>Angry</h3>
+                <p>Fire it up!</p>
+            </div>
+            <div class="mood-card stressed" onclick="selectMood('stressed')">
+                <div class="mood-emoji spin">😰</div>
+                <h3>Stressed</h3>
+                <p>Time to relax</p>
+            </div>
+            <div class="mood-card excited" onclick="selectMood('excited')">
+                <div class="mood-emoji wiggle">🤩</div>
+                <h3>Excited</h3>
+                <p>Adventure awaits!</p>
+            </div>
+        </div>
+
+        <div id="foodSuggestions" class="food-suggestions hidden">
+            <h2 id="suggestionTitle"></h2>
+            
+            <!-- Healing Message for Negative Moods -->
+            <div id="healingMessage" class="healing-message hidden">
+                <div class="healing-content">
+                    <img src="peaceful.jpeg" alt="Peaceful moment" class="healing-image-static" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22%3E%3Crect fill=%22%23dda0dd%22 width=%22300%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%22100%22 text-anchor=%22middle%22 dy=%22.3em%22%3E💙%3C/text%3E%3C/svg%3E'">
+                    <div class="healing-text">
+                        <h3 id="healingTitle"></h3>
+                        <p id="healingDescription"></p>
+                        <div class="healing-tips" id="healingTips"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="food-grid" id="foodGrid"></div>
+            <button class="shuffle-btn" onclick="shuffleFoods()">🎲 Shuffle Suggestions</button>
+        </div>
+
+        <!-- Fun floating food emojis -->
+        <div class="floating-food">🍕</div>
+        <div class="floating-food" style="animation-delay: 2s;">🍦</div>
+        <div class="floating-food" style="animation-delay: 4s;">🍰</div>
+        <div class="floating-food" style="animation-delay: 6s;">🌮</div>
+    </div>
+
+    <!-- Blog Page -->
+    <div id="blogPage" class="page">
+        <div class="page-container">
+            <h1 class="page-title">📚 Our Blog</h1>
+            <p class="page-intro">Explore the fascinating connection between food and emotions</p>
+            <div class="blog-grid">
+                <article class="blog-card" onclick="openBlogPost('comfort-food')">
+                    <img src="comfortfood.jpg" alt="Comfort food" class="blog-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22300%22%3E%3Crect fill=%22%23ff69b4%22 width=%22500%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2280%22 text-anchor=%22middle%22 dy=%22.3em%22%3E🧠%3C/text%3E%3C/svg%3E'">
+                    <div class="blog-content">
+                        <div class="blog-icon">🧠</div>
+                        <h2>The Science Behind Comfort Food</h2>
+                        <p>Discover why certain foods make us feel better and the fascinating psychology of emotional eating.</p>
+                        <span class="blog-date">Dec 1, 2024 • 5 min read</span>
+                        <span class="blog-tag">Psychology</span>
+                    </div>
+                </article>
+                <article class="blog-card" onclick="openBlogPost('spicy-foods')">
+                    <img src="spicyfood.webp" alt="Spicy food" class="blog-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22300%22%3E%3Crect fill=%22%23ff1493%22 width=%22500%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2280%22 text-anchor=%22middle%22 dy=%22.3em%22%3E🌶️%3C/text%3E%3C/svg%3E'">
+                    <div class="blog-content">
+                        <div class="blog-icon">🌶️</div>
+                        <h2>Why Spicy Food Helps When You're Angry</h2>
+                        <p>The surprising connection between spicy foods and stress relief through endorphin release.</p>
+                        <span class="blog-date">Nov 25, 2024 • 4 min read</span>
+                        <span class="blog-tag">Science</span>
+                    </div>
+                </article>
+                <article class="blog-card" onclick="openBlogPost('dark-chocolate')">
+                    <img src="darkchocolate.png" alt="Dark chocolate" class="blog-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22300%22%3E%3Crect fill=%22%238B4513%22 width=%22500%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2280%22 text-anchor=%22middle%22 dy=%22.3em%22%3E🍫%3C/text%3E%3C/svg%3E'">
+                    <div class="blog-content">
+                        <div class="blog-icon">🍫</div>
+                        <h2>Dark Chocolate: The Stress Buster</h2>
+                        <p>Why dark chocolate is scientifically proven to reduce stress and improve your mood.</p>
+                        <span class="blog-date">Nov 20, 2024 • 5 min read</span>
+                        <span class="blog-tag">Health</span>
+                    </div>
+                </article>
+                <article class="blog-card" onclick="openBlogPost('mindful-eating')">
+                    <img src="mindful.jpg" alt="Mindful eating" class="blog-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22300%22%3E%3Crect fill=%22%234ecdc4%22 width=%22500%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2280%22 text-anchor=%22middle%22 dy=%22.3em%22%3E🧘%3C/text%3E%3C/svg%3E'">
+                    <div class="blog-content">
+                        <div class="blog-icon">🧘</div>
+                        <h2>Mindful Eating: Transform Your Relationship with Food</h2>
+                        <p>Practice mindfulness while eating to enhance satisfaction and emotional wellbeing.</p>
+                        <span class="blog-date">Nov 15, 2024 • 7 min read</span>
+                        <span class="blog-tag">Wellness</span>
+                    </div>
+                </article>
+                <article class="blog-card" onclick="openBlogPost('energy-foods')">
+                    <img src="energy.jpg" alt="Energy foods" class="blog-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22300%22%3E%3Crect fill=%22%23f7b731%22 width=%22500%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2280%22 text-anchor=%22middle%22 dy=%22.3em%22%3E⚡%3C/text%3E%3C/svg%3E'">
+                    <div class="blog-content">
+                        <div class="blog-icon">⚡</div>
+                        <h2>10 Foods to Beat Fatigue and Boost Energy</h2>
+                        <p>Combat tiredness naturally with these energizing foods that fuel your body and mind.</p>
+                        <span class="blog-date">Nov 10, 2024 • 5 min read</span>
+                        <span class="blog-tag">Energy</span>
+                    </div>
+                </article>
+                <article class="blog-card" onclick="openBlogPost('happy-food')">
+                    <img src="happyfood.jpg" alt="Happy food" class="blog-image" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22500%22 height=%22300%22%3E%3Crect fill=%22%23ffb6c1%22 width=%22500%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2280%22 text-anchor=%22middle%22 dy=%22.3em%22%3E😊%3C/text%3E%3C/svg%3E'">
+                    <div class="blog-content">
+                        <div class="blog-icon">😊</div>
+                        <h2>Foods That Naturally Boost Happiness</h2>
+                        <p>Discover the science-backed foods that increase serotonin and dopamine levels.</p>
+                        <span class="blog-date">Nov 5, 2024 • 6 min read</span>
+                        <span class="blog-tag">Mood</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="aboutPage" class="page">
+        <div class="page-container">
+            <h1 class="page-title">💫 About FoodSwing</h1>
+            <p class="page-intro">Connecting emotions with culinary experiences since 2024</p>
+            <div class="about-content">
+                <div class="about-card">
+                    <div class="about-icon">🎯</div>
+                    <h2>Our Mission</h2>
+                    <p>FoodSwing is your personal food companion that understands the deep connection between emotions and eating. We believe that food is more than just fuel—it's comfort, celebration, and therapy.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">✨</div>
+                    <h2>What We Do</h2>
+                    <p>We help you discover the perfect foods that match your emotional state, whether you need comfort, excitement, or just something to brighten your day. Our AI-powered suggestions are backed by nutrition science and emotional psychology.</p>
+                </div>
+                <div class="about-card">
+                    <div class="about-icon">🚀</div>
+                    <h2>Our Story</h2>
+                    <p>Founded in 2024, we combine culinary expertise with emotional intelligence to create a unique food discovery experience that brings joy to every meal. Join thousands of happy users who've transformed their relationship with food.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page (SINGLE VERSION - NO DUPLICATE) -->
+    <div id="contactPage" class="page">
+        <div class="page-container">
+            <h1 class="page-title">📧 Contact Us</h1>
+            <p class="page-intro">We'd love to hear from you!</p>
+            <div class="contact-container-simple">
+                <div class="contact-info-simple">
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <div>
+                                <h3>Email</h3>
+                                <p>hello@foodswing.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📱</span>
+                            <div>
+                                <h3>Phone</h3>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">🌍</span>
+                            <div>
+                                <h3>Location</h3>
+                                <p>San Francisco, CA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="contactName" placeholder="Your name" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="contactEmail" placeholder="your@email.com" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea id="contactMessage" placeholder="Your message" class="form-textarea"></textarea>
+                    </div>
+                    <button class="submit-btn" onclick="submitContact()">Send Message 🚀</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fun Confetti Container -->
+    <div id="confettiContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

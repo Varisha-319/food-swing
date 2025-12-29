@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="400" viewBox="0 0 500 400">
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff69b4;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#ff1493;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="500" height="400" fill="#fff0f6" opacity="0.3"/>
+  
+  <!-- Large circle background -->
+  <circle cx="250" cy="200" r="150" fill="url(#grad2)" opacity="0.2"/>
+  
+  <!-- Food items floating -->
+  <!-- Pizza -->
+  <g transform="translate(100, 100)">
+    <circle cx="0" cy="0" r="40" fill="#ffeb3b" opacity="0.9"/>
+    <circle cx="-10" cy="-5" r="8" fill="#ff6b6b"/>
+    <circle cx="10" cy="5" r="8" fill="#ff6b6b"/>
+    <circle cx="5" cy="-8" r="8" fill="#4ecdc4"/>
+    <text x="-20" y="10" font-size="50" opacity="0.6">🍕</text>
+  </g>
+  
+  <!-- Burger -->
+  <g transform="translate(400, 150)">
+    <text x="-25" y="15" font-size="60" opacity="0.7">🍔</text>
+  </g>
+  
+  <!-- Heart -->
+  <g transform="translate(250, 80)">
+    <text x="-20" y="20" font-size="50" opacity="0.8">❤️</text>
+  </g>
+  
+  <!-- Ice cream -->
+  <g transform="translate(350, 300)">
+    <text x="-20" y="15" font-size="55" opacity="0.7">🍦</text>
+  </g>
+  
+  <!-- Taco -->
+  <g transform="translate(150, 320)">
+    <text x="-20" y="15" font-size="55" opacity="0.6">🌮</text>
+  </g>
+  
+  <!-- Center building/mission icon -->
+  <g transform="translate(250, 220)">
+    <!-- Building shape -->
+    <rect x="-50" y="-60" width="100" height="80" rx="10" fill="url(#grad2)" opacity="0.7"/>
+    <rect x="-40" y="-70" width="80" height="10" fill="#ff1493" opacity="0.8"/>
+    
+    <!-- Windows -->
+    <rect x="-35" y="-50" width="20" height="20" rx="3" fill="#fff" opacity="0.8"/>
+    <rect x="-5" y="-50" width="20" height="20" rx="3" fill="#fff" opacity="0.8"/>
+    <rect x="15" y="-50" width="20" height="20" rx="3" fill="#fff" opacity="0.8"/>
+    
+    <rect x="-35" y="-20" width="20" height="20" rx="3" fill="#fff" opacity="0.8"/>
+    <rect x="-5" y="-20" width="20" height="20" rx="3" fill="#fff" opacity="0.8"/>
+    <rect x="15" y="-20" width="20" height="20" rx="3" fill="#fff" opacity="0.8"/>
+    
+    <!-- Door -->
+    <rect x="-10" y="0" width="20" height="20" rx="3" fill="#fff"/>
+  </g>
+  
+  <!-- Sparkles -->
+  <text x="80" y="200" font-size="30" fill="#ffd700" opacity="0.7">✨</text>
+  <text x="380" y="250" font-size="30" fill="#ffd700" opacity="0.7">✨</text>
+  <text x="200" y="50" font-size="25" fill="#ffd700" opacity="0.8">✨</text>
+  <text x="320" y="100" font-size="25" fill="#ffd700" opacity="0.6">✨</text>
+  
+  <!-- Decorative circles -->
+  <circle cx="50" cy="350" r="20" fill="#ff69b4" opacity="0.3"/>
+  <circle cx="450" cy="50" r="25" fill="#ff1493" opacity="0.3"/>
+  <circle cx="80" cy="80" r="15" fill="#ffb6c1" opacity="0.4"/>
+  <circle cx="420" cy="370" r="18" fill="#ff69b4" opacity="0.4"/>
+</svg>
